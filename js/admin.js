@@ -42,7 +42,7 @@ function saveProducts() {
 function showProducts() {
     const container = document.getElementById('products-list');
     container.innerHTML = '';
-    
+
     products.forEach(product => {
         const div = document.createElement('div');
         div.className = 'product-item';
@@ -64,22 +64,22 @@ function showProducts() {
 
 function addProduct(e) {
     e.preventDefault();
-    
+
     const newProduct = {
         id: products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1,
         name: document.getElementById('name').value,
         sort: document.getElementById('type').value,
         price: parseFloat(document.getElementById('price').value),
         stock: parseInt(document.getElementById('stock').value),
-        image: document.getElementById('image').value
+        image: document.getElementById('image').value,
     };
-    
+
     products.push(newProduct);
     saveProducts();
-    
+
     // Hier refresh ik de page om alles gelijk gewijzigd te houden zonder delay //
     localStorage.setItem('force-refresh', Date.now());
-    
+
     e.target.reset();
     showTab('products');
     alert('Product toegevoegd!');
@@ -88,14 +88,14 @@ function addProduct(e) {
 function openEditModal(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
-    
+
     document.getElementById('edit-id').value = product.id;
     document.getElementById('edit-name').value = product.name;
     document.getElementById('edit-type').value = product.sort;
     document.getElementById('edit-price').value = product.price;
     document.getElementById('edit-stock').value = product.stock;
     document.getElementById('edit-image').value = product.image;
-    
+
     document.getElementById('edit-modal').style.display = 'flex';
 }
 
@@ -105,17 +105,17 @@ function closeModal() {
 
 function saveEdit(e) {
     e.preventDefault();
-    
+
     const id = parseInt(document.getElementById('edit-id').value);
     const product = products.find(p => p.id === id);
-    
+
     if (product) {
         product.name = document.getElementById('edit-name').value;
         product.sort = document.getElementById('edit-type').value;
         product.price = parseFloat(document.getElementById('edit-price').value);
         product.stock = parseInt(document.getElementById('edit-stock').value);
         product.image = document.getElementById('edit-image').value;
-        
+
         saveProducts();
         closeModal();
         showProducts();
@@ -123,27 +123,49 @@ function saveEdit(e) {
 }
 
 function deleteProduct(id) {
-    if (confirm('Weet je zeker dat je dit product wilt verwijderen?')) {
+    showConfirmation('Weet je zeker dat je dit product wilt verwijderen?', () => {
         products = products.filter(p => p.id !== id);
         saveProducts();
-    }
+    });
 }
 
 function resetProducts() {
-    if (confirm('Weet je zeker dat je alle producten wilt resetten?')) {
+    showConfirmation('Weet je zeker dat je alle producten wilt resetten?', () => {
         localStorage.removeItem('products');
         loadProducts();
-    }
+    });
 }
 
-function showTab(tabName) {
+function showConfirmation(message, onConfirm) {
+    const modal = document.createElement("div");
+    modal.className = "confirm-modal";
+    modal.innerHTML = `
+        <div class="confirm-box">
+            <p>${message}</p>
+            <button id="confirm-yes">Ja</button>
+            <button id="confirm-no">Nee</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById("confirm-yes").onclick = () => {
+        onConfirm();
+        modal.remove();
+    };
+    document.getElementById("confirm-no").onclick = () => {
+        modal.remove();
+    };
+}
+
+function showTab(tabName, event) {
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.style.display = 'none';
     });
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    
+
     document.getElementById(`${tabName}-tab`).style.display = 'block';
     event.target.classList.add('active');
 }

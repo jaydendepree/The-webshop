@@ -14,26 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
     let allProducts = [];
 
     async function loadProducts() {
-    try {
+        try {
         // Ik kijk eerst of er producten zijn die al aangepast zijn op een eerder moment //
-        const localProducts = localStorage.getItem('products');
-        if (localProducts) {
-            allProducts = JSON.parse(localProducts);
-        } else {
+            const localProducts = localStorage.getItem('products');
+            if (localProducts) {
+                allProducts = JSON.parse(localProducts);
+            } else {
             // Als dit niet zo is laat die hier de standaardproducten zien vanuit de json //
-            const response = await fetch("products.json");
-            allProducts = await response.json();
+                const response = await fetch("products.json");
+                allProducts = await response.json();
+            }
+            renderProducts(allProducts);
+            setupFilterButtons();
+        } catch (error) {
+            console.error("Fout bij laden producten:", error);
+            productContainer.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <p>Fout bij laden van producten. Probeer de pagina te vernieuwen.</p>
+                </div>
+            `;
         }
-        renderProducts(allProducts);
-        setupFilterButtons();
-    } catch (error) {
-        console.error("Fout bij laden producten:", error);
-        productContainer.innerHTML = `
-            <div style="text-align: center; padding: 20px;">
-                <p>Fout bij laden van producten. Probeer de pagina te vernieuwen.</p>
-            </div>
-        `;
-    }
     }
 
     function renderProducts(products) {
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <button data-sort="Vega" class="sort-vega">Vega</button>
                     <button data-sort="Halal" class="sort-halal">Halal</button>
                 `;
-                
+
                 document.querySelector(".filter-buttons").appendChild(filterDropdown);
 
                 filterDropdown.querySelectorAll("button").forEach(btn => {
@@ -147,9 +147,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Dit staat ook in elke page om de producten te updated in de storage //
     window.addEventListener('storage', (e) => {
-    if (e.key === 'products-updated' || e.key === 'force-refresh') {
-        loadProducts();
-    }
-});
-
+        if (e.key === 'products-updated' || e.key === 'force-refresh') {
+            loadProducts();
+        }
+    });
 });

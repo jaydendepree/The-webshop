@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalEl.textContent = `€${subtotal.toFixed(2)}`;
     }
 
-    window.updateQuantity = function(productId, change) {
+    window.updateQuantity = function (productId, change) {
         let cart = JSON.parse(localStorage.getItem("cart")) || {};
         const currentQuantity = cart[productId] || 0;
         const newQuantity = currentQuantity + change;
@@ -114,25 +114,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadProducts();
 
-document.getElementById("checkout-btn").addEventListener("click", function() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || {};
-    if (Object.keys(cart).length === 0) {
-        alert("Je winkelwagen is leeg!");
-        return;
-    }
-    
-    alert("Bedankt voor uw bestelling!");
-    localStorage.removeItem("cart");
-    
-    if (productsCache) {
-        renderCart(productsCache);
-    }
-    
-    // Teller erbij gezet als cart leeg blijft met een gevoegd product //
-    const cartCounter = document.getElementById("cart-count");
-    if (cartCounter) {
-        cartCounter.textContent = "0";
-        cartCounter.style.display = "none";
-    }
-});
+    document.getElementById("checkout-btn").addEventListener("click", function () {
+        const cart = JSON.parse(localStorage.getItem("cart")) || {};
+        if (Object.keys(cart).length === 0) {
+            alert("Je winkelwagen is leeg!");
+            return;
+        }
+
+        alert("Bedankt voor uw bestelling!");
+        localStorage.removeItem("cart");
+
+        if (productsCache) {
+            renderCart(productsCache);
+        }
+
+        // Teller erbij gezet als cart leeg blijft met een gevoegd product //
+        const cartCounter = document.getElementById("cart-count");
+        if (cartCounter) {
+            cartCounter.textContent = "0";
+            cartCounter.style.display = "none";
+        }
+    });
 });

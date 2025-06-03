@@ -28,7 +28,7 @@ Om dit project te runnen heb je het volgende nodig:
 
 #### Clone het project
 ```bash
-git clone git@git.nexed.com:01919ca3-536f-753f-9f62-96f2a8bd4968/01919ca8-776d-70ae-9e84-8e4f19dbaa46/The-Webshop-4f0adea2ea8b-5d38abefc3d6.git
+git git@github.com:jaydendepree/The-webshop.git
 ```
 #### Navigaar naar de map
 ```bash
@@ -70,8 +70,8 @@ Het laden van de producten komt vanuit een js bestand zodat ook in de admin page
 Hier staat meer informatie in alleen de knoppen werken niet aangezien dit niet hoeftte. Wel staat er een copyright claim in en functioneren de knoppen in de footer niet.
 
 ## De online website
-De online website kun je vinden op: https://the-webshop-green.vercel.app/
-De githubopdracht is te vinden op: https://git.nexed.com/01919ca3-536f-753f-9f62-96f2a8bd4968/01919ca8-776d-70ae-9e84-8e4f19dbaa46/The-Webshop-4f0adea2ea8b-5d38abefc3d6.git
+De online website kun je vinden op: https://epfe-mealprepping.vercel.app
+De github is te vinden op: https://git.nexed.com/01919ca3-536f-753f-9f62-96f2a8bd4968/01919ca8-776d-70ae-9e84-8e4f19dbaa46/The-Webshop-4f0adea2ea8b-5d38abefc3d6.git
 
 ## Contributing
 

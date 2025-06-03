@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <img src="images/logo.png" class="logo">
+        <img src="images/logo.png" class="logo" alt="epfe-logo">
         <div class="title">EPFE MEALPREPPING - ADMIN</div>
         <div class="nav">
             <a href="index.html">Terug naar Shop</a>
@@ -18,7 +18,7 @@
 
     <div class="admin-container">
         <div class="admin-tabs">
-            <button class="tab-btn active" onclick="showTab('products')">Producten</button>
+            <button class="tab-btn active" onclick="showTab('products, event')">Producten</button>
             <button class="tab-btn" onclick="showTab('add')">Product Toevoegen</button>
         </div>
 
@@ -33,6 +33,7 @@
             <form id="add-form">
                 <input type="text" id="name" placeholder="Naam" required>
                 <select id="type" required>
+                    <option value="" disabled selected>Selecteer een sort</option>
                     <option value="Standard">Standard</option>
                     <option value="Vega">Vega</option>
                     <option value="Halal">Halal</option>
@@ -53,6 +54,7 @@
                 <input type="hidden" id="edit-id">
                 <input type="text" id="edit-name" placeholder="Naam" required>
                 <select id="edit-type" required>
+                    <option value="" disabled selected>Selecteer een sort</option>
                     <option value="Standard">Standard</option>
                     <option value="Vega">Vega</option>
                     <option value="Halal">Halal</option>
